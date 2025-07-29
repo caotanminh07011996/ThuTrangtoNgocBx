@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -13,6 +12,25 @@
       margin: 20px;
       text-align: center;
     }
+
+    #question-box {
+      margin-top: 150px;
+    }
+    .button {
+      padding: 12px 24px;
+      font-size: 20px;
+      margin: 20px;
+      cursor: pointer;
+      border: none;
+      border-radius: 8px;
+      background-color: #e91e63;
+      color: white;
+      transition: 0.3s ease;
+    }
+    #noBtn {
+      position: relative;
+    }
+
     .text-box {
       width: 1000px;
       margin: 0 auto;
@@ -26,9 +44,6 @@
       text-align: left;
       white-space: pre-wrap;
       min-height: 300px;
-    }
-    .typing-text {
-      /* Bỏ border blinking */
     }
 
     .carousel-wrapper {
@@ -74,6 +89,10 @@
         stroke-dashoffset: 0;
       }
     }
+
+    #content {
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -83,35 +102,45 @@
   Trình duyệt của bạn không hỗ trợ âm thanh.
 </audio>
 
-<div class="text-box">
-  <span id="typedText" class="typing-text"></span>
+<!-- Câu hỏi mở đầu -->
+<div id="question-box">
+  <h2>Ngọc Bích có yêu quý Thu Trang không?</h2>
+  <button class="button" onclick="showContent()">Có</button>
+  <button class="button" id="noBtn" onmouseover="moveNoButton()">Không</button>
 </div>
 
-<div class="svg-text" id="loveText">
-<svg viewBox="0 0 500 100">
-  <path d="M20,50 Q100,10 180,50 T340,50 Q420,90 480,50" fill="none" stroke="#e91e63" stroke-width="4"/>
-  <text x="50%" y="65%" text-anchor="middle" font-size="36" font-family="cursive" fill="none" stroke="#e91e63" stroke-width="1">
-    Love you!
-  </text>
-</svg>
-</div>
+<!-- Nội dung chính -->
+<div id="content">
+  <div class="text-box">
+    <span id="typedText" class="typing-text"></span>
+  </div>
 
-<div class="carousel-wrapper" id="carousel">
-<img src="ThuTrang/1.JPEG" class="carousel-item">
-<img src="ThuTrang/2.JPG" class="carousel-item">
-<img src="ThuTrang/3.JPG" class="carousel-item">
-<img src="ThuTrang/4.jpg" class="carousel-item">
-<img src="ThuTrang/5.jpg" class="carousel-item">
-<img src="ThuTrang/6.PNG" class="carousel-item">
-<img src="ThuTrang/7.jpg" class="carousel-item">
-<img src="ThuTrang/8.PNG" class="carousel-item">
-<img src="ThuTrang/9.jpg" class="carousel-item">
-<img src="ThuTrang/10.JPG" class="carousel-item">
-<img src="ThuTrang/11.JPG" class="carousel-item">
-<img src="ThuTrang/12.jpg" class="carousel-item">
-<img src="ThuTrang/13.JPG" class="carousel-item">
-<img src="ThuTrang/14.PNG" class="carousel-item">
-<img src="ThuTrang/15.JPG" class="carousel-item">
+  <div class="svg-text" id="loveText">
+    <svg viewBox="0 0 500 100">
+      <path d="M20,50 Q100,10 180,50 T340,50 Q420,90 480,50" fill="none" stroke="#e91e63" stroke-width="4"/>
+      <text x="50%" y="65%" text-anchor="middle" font-size="36" font-family="cursive" fill="none" stroke="#e91e63" stroke-width="1">
+        Love you!
+      </text>
+    </svg>
+  </div>
+
+  <div class="carousel-wrapper" id="carousel">
+    <img src="ThuTrang/1.JPEG" class="carousel-item">
+    <img src="ThuTrang/2.JPG" class="carousel-item">
+    <img src="ThuTrang/3.JPG" class="carousel-item">
+    <img src="ThuTrang/4.jpg" class="carousel-item">
+    <img src="ThuTrang/5.jpg" class="carousel-item">
+    <img src="ThuTrang/6.PNG" class="carousel-item">
+    <img src="ThuTrang/7.jpg" class="carousel-item">
+    <img src="ThuTrang/8.PNG" class="carousel-item">
+    <img src="ThuTrang/9.jpg" class="carousel-item">
+    <img src="ThuTrang/10.JPG" class="carousel-item">
+    <img src="ThuTrang/11.JPG" class="carousel-item">
+    <img src="ThuTrang/12.jpg" class="carousel-item">
+    <img src="ThuTrang/13.JPG" class="carousel-item">
+    <img src="ThuTrang/14.PNG" class="carousel-item">
+    <img src="ThuTrang/15.JPG" class="carousel-item">
+  </div>
 </div>
 
 <script>
@@ -141,12 +170,24 @@ function typeWriter() {
     i++;
     setTimeout(typeWriter, speed);
   } else {
-    // hiện svg sau khi viết xong
     document.getElementById("loveText").style.display = "block";
   }
 }
 
-window.onload = typeWriter;
+function showContent() {
+  document.getElementById("question-box").style.display = "none";
+  document.getElementById("content").style.display = "block";
+  typeWriter();
+}
+
+function moveNoButton() {
+  const btn = document.getElementById("noBtn");
+  const x = Math.floor(Math.random() * (window.innerWidth - 100));
+  const y = Math.floor(Math.random() * (window.innerHeight - 50));
+  btn.style.position = "absolute";
+  btn.style.left = x + "px";
+  btn.style.top = y + "px";
+}
 
 // carousel zoom effect
 const carousel = document.getElementById("carousel");
